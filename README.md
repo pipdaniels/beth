@@ -38,3 +38,7 @@ Beth is a modern, responsive text-to-video application built with SvelteKit and 
 - Custom brand colors defined via CSS custom properties.
 - Strictly adheres to Tailwind utilities avoiding sprawling component `<style>` blocks.
 - Real-time terminal mimics "Terminal-Timeline Hybrid", providing user assurance that the Google ADK and Veo 3.0 models are working.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
