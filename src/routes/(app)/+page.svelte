@@ -33,18 +33,20 @@
     <p class="text-gray-500 dark:text-gray-400 text-lg mt-2">Describe the scene, style, and soundtrack for your next masterpiece.</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-     <!-- Left: Prompt Section -->
-     <div class="md:col-span-2 flex flex-col gap-4">
+  <div class="flex flex-col gap-8 md:gap-6">
+     <!-- Prompt Section - Full Width -->
+     <div class="flex flex-col gap-4">
         <Label for="prompt-area" class="text-lg font-semibold dark:text-gray-200">Cinematic Prompt</Label>
-        <Textarea id="prompt-area" bind:value={promptText} rows={10} placeholder="A futuristic city cyberpunk scene, neon lights reflecting on the wet pavement, slow sweeping camera movement, ambient synths playing..." class="resize-none shadow-sm text-lg !p-4 border-gray-300 focus:ring-secondary focus:border-secondary dark:bg-gray-800 dark:border-gray-700" />
+        <Textarea id="prompt-area" bind:value={promptText} rows={10} placeholder="A futuristic city cyberpunk scene, neon lights reflecting on the wet pavement, slow sweeping camera movement, ambient synths playing..." class="resize-none shadow-sm text-lg !p-4 border-gray-300 focus:ring-secondary focus:border-secondary dark:bg-gray-800 dark:border-gray-700 w-full" />
      </div>
 
-     <!-- Right: Settings and Generate -->
-     <div class="md:col-span-1 flex flex-col gap-6">
-        <CreditEstimateWidget bind:duration />
+     <!-- Settings and Generate - Centered on Desktop with Side Layout on Larger Screens -->
+     <div class="flex flex-col md:flex-row gap-6 md:gap-8 md:items-end md:justify-between">
+        <div class="flex-1 md:max-w-sm">
+           <CreditEstimateWidget bind:duration />
+        </div>
         
-        <AppButton size="xl" variant="primary" class="w-full py-4 text-lg group" disabled={!isValidPrompt || !hasEnoughCredits} onclick={startGeneration}>
+        <AppButton size="xl" variant="primary" class="w-full md:w-auto py-4 px-8 text-lg group" disabled={!isValidPrompt || !hasEnoughCredits} onclick={startGeneration}>
             {#if !hasEnoughCredits}
                Need More Credits
             {:else if !isValidPrompt}

@@ -3,23 +3,37 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Set #020617 as the primary brand */
-  --color-primary: #020617;
+  /* Primary brand color: Vibrant Red #ff0f1c */
+  --color-primary: #ff0f1c;
   
-  /* Set #0EA5E9 as the secondary brand */
-  --color-secondary: #0EA5E9;
+  /* Secondary brand color: Dark Gray #4b4c4e */
+  --color-secondary: #4b4c4e;
 
-  --color-primary-50: #f8fafc;
-  --color-primary-100: #f1f5f9;
-  --color-primary-200: #e2e8f0;
-  --color-primary-300: #cbd5e1;
-  --color-primary-400: #94a3b8;
-  --color-primary-500: #64748b;
-  --color-primary-600: #475569;
-  --color-primary-700: #334155;
-  --color-primary-800: #1e293b;
-  --color-primary-900: #0f172a;
-  --color-primary-950: #020617;
+  /* Primary Red Palette */
+  --color-primary-50: #fff5f5;
+  --color-primary-100: #ffe6e6;
+  --color-primary-200: #ffcccc;
+  --color-primary-300: #ff9999;
+  --color-primary-400: #ff6666;
+  --color-primary-500: #ff3333;
+  --color-primary-600: #ff0f1c;
+  --color-primary-700: #e60a15;
+  --color-primary-800: #cc0811;
+  --color-primary-900: #b3070d;
+  --color-primary-950: #4d0306;
+
+  /* Secondary Gray Palette */
+  --color-secondary-50: #f8f8f8;
+  --color-secondary-100: #f0f0f0;
+  --color-secondary-200: #e0e0e0;
+  --color-secondary-300: #bfbfbf;
+  --color-secondary-400: #a0a0a0;
+  --color-secondary-500: #808080;
+  --color-secondary-600: #4b4c4e;
+  --color-secondary-700: #3f4040;
+  --color-secondary-800: #323333;
+  --color-secondary-900: #262626;
+  --color-secondary-950: #1a1a1a;
   
   --animate-fade-in: fade-in 0.4s ease-out forwards;
 }
