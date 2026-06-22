@@ -28,7 +28,7 @@
   // Automatically update states when a video is selected
   $effect(() => {
     if (selectedVideo) {
-      caption = `Created an amazing clip with Beth: "${selectedVideo.prompt.slice(0, 60)}..." #AI #beth`;
+      caption = `Created an amazing clip with Beth: "${selectedVideo.prompt.slice(0, 60)}..." #AI #Beth`;
       showPublishForm = false;
       isPublished = false;
       publishMessage = '';

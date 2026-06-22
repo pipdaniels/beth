@@ -22,7 +22,7 @@
 </script>
 
 <svelte:head>
-  <title>Beth | Text to Video</title>
+  <title>Shark | Text to Video</title>
 </svelte:head>
 
 <div class="max-w-5xl mx-auto flex flex-col gap-8 py-8 animate-fade-in">

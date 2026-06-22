@@ -47,8 +47,24 @@
   let selectedVideo = $derived($videos.find(v => v.id === selectedVideoId));
   let isFormValid = $derived(selectedAccountId && selectedVideoId && caption.trim().length > 0 && (publishMode === 'now' || (scheduleDate && scheduleTime)));
 
+  // When switching to schedule mode, default date and time to current
+  $effect(() => {
+    if (publishMode === 'schedule') {
+      if (!scheduleDate) {
+        const now = new Date();
+        // YYYY-MM-DD for date input
+        scheduleDate = now.toISOString().slice(0, 10);
+      }
+      if (!scheduleTime) {
+        const now = new Date();
+        const pad = (n: number) => String(n).padStart(2, '0');
+        scheduleTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+      }
+    }
+  });
+
   // Hashtag suggestions
-  const tags = ['#AIArt', '#scifi', '#future', '#visuals', '#beth', '#cyberpunk'];
+  const tags = ['#AIArt', '#scifi', '#future', '#visuals', '#Beth', '#cyberpunk'];
   function addHashtag(tag: string) {
     if (!caption.includes(tag)) {
       caption = caption.trim() + ' ' + tag;
@@ -226,7 +242,7 @@
             <Label for="caption" class="text-sm font-semibold dark:text-gray-200">Post Caption</Label>
             <span class="text-xs text-gray-400 font-mono">{caption.length}/2200 characters</span>
           </div>
-          <Textarea id="caption" bind:value={caption} rows={4} placeholder="Write a catchy caption, add relevant hashtags..." class="resize-none dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:ring-secondary focus:border-secondary" />
+          <Textarea id="caption" bind:value={caption} rows={8} placeholder="Write a catchy caption, add relevant hashtags..." class="w-full h-24 resize-none dark:bg-gray-900 border-gray-200 dark:border-gray-700 focus:ring-secondary focus:border-secondary" />
           
           <div class="flex flex-wrap gap-2 pt-2">
             <span class="text-xs text-gray-400 self-center mr-1">Hot tags:</span>

@@ -1,16 +1,28 @@
 <script lang="ts">
-  import { Sidebar, SidebarGroup, SidebarItem, SidebarWrapper } from 'flowbite-svelte';
+  import { Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, Tooltip } from 'flowbite-svelte';
   import { EditOutline, GridOutline, CreditCardOutline, PaperPlaneOutline, ChevronLeftOutline, ChevronRightOutline, CogOutline, UserOutline } from 'flowbite-svelte-icons';
   import { page } from '$app/stores';
   import { sidebarCollapsed } from '$lib/stores/ui';
+
+  const primaryItems = [
+    { label: 'Prompt', href: '/', icon: EditOutline, id: 'prompt-tooltip' },
+    { label: 'Gallery', href: '/gallery', icon: GridOutline, id: 'gallery-tooltip' },
+    { label: 'Publish', href: '/publish', icon: PaperPlaneOutline, id: 'publish-tooltip' },
+    { label: 'Billing', href: '/billing', icon: CreditCardOutline, id: 'billing-tooltip' }
+  ];
+
+  const secondaryItems = [
+    { label: 'Settings', href: '/settings', icon: CogOutline },
+    { label: 'Profile', href: '/profile', icon: UserOutline }
+  ];
 </script>
 
-<Sidebar class="hidden md:block transition-all duration-300 flex-shrink-0 h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 {$sidebarCollapsed ? '!w-20' : '!w-64'}">
+<Sidebar position="static" class="hidden md:block transition-all duration-300 flex-shrink-0 h-full border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 {$sidebarCollapsed ? '!w-20' : '!w-64'}">
   <SidebarWrapper class="h-full flex flex-col py-4 px-3 gap-4">
     <!-- Header with Logo and Collapse Button -->
     <div class="flex items-center {$sidebarCollapsed ? 'justify-center' : 'justify-between'} mb-2">
       {#if !$sidebarCollapsed}
-        <h2 class="text-xl font-bold text-primary">Beth</h2>
+        <h2 class="text-xl font-bold text-primary">Menu</h2>
       {/if}
       <button 
         onclick={() => sidebarCollapsed.update(c => !c)}
@@ -28,48 +40,53 @@
     <!-- Main Navigation -->
     <div class="flex-1">
       <SidebarGroup class="space-y-2">
-        <SidebarItem label={$sidebarCollapsed ? '' : 'Prompt'} href="/" active={$page.url.pathname === '/'} title="Prompt">
-          <svelte:fragment slot="icon">
-            <EditOutline class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-          </svelte:fragment>
-        </SidebarItem>
-        
-        <SidebarItem label={$sidebarCollapsed ? '' : 'Gallery'} href="/gallery" active={$page.url.pathname === '/gallery'} title="Gallery">
-          <svelte:fragment slot="icon">
-            <GridOutline class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-          </svelte:fragment>
-        </SidebarItem>
-
-        <SidebarItem label={$sidebarCollapsed ? '' : 'Publish'} href="/publish" active={$page.url.pathname === '/publish'} title="Publish">
-          <svelte:fragment slot="icon">
-            <PaperPlaneOutline class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-          </svelte:fragment>
-        </SidebarItem>
-
-        <SidebarItem label={$sidebarCollapsed ? '' : 'Billing'} href="/billing" active={$page.url.pathname === '/billing'} title="Billing">
-          <svelte:fragment slot="icon">
-            <CreditCardOutline class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-          </svelte:fragment>
-        </SidebarItem>
+        {#each primaryItems as item}
+          <SidebarItem
+            id={item.id}
+            label={$sidebarCollapsed ? '' : item.label}
+            href={item.href}
+            active={$page.url.pathname === item.href}
+            title={item.label}
+            aria-label={item.label}
+            class={$sidebarCollapsed ? 'flex justify-center' : ''}
+            spanClass={$sidebarCollapsed ? 'hidden' : 'ms-3'}
+            aClass={$sidebarCollapsed ? 'justify-center' : ''}
+          >
+            {#snippet icon()}
+              {@const Icon = item.icon}
+              <Icon class="w-6 h-6 shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+            {/snippet}
+          </SidebarItem>
+          {#if $sidebarCollapsed}
+            <Tooltip triggeredBy={`#${item.id}`} placement="right" class="rounded bg-gray-900 px-2 py-1 text-sm font-medium text-white dark:bg-white dark:text-gray-900">
+              {item.label}
+            </Tooltip>
+          {/if}
+        {/each}
       </SidebarGroup>
     </div>
     
     <!-- Bottom Navigation (Settings & Profile) -->
     <div class="border-t border-gray-200 dark:border-gray-800 pt-4">
       <SidebarGroup class="space-y-2">
-        <SidebarItem label={$sidebarCollapsed ? '' : 'Settings'} href="/settings" active={$page.url.pathname === '/settings'} title="Settings">
-          <svelte:fragment slot="icon">
-            <CogOutline class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-          </svelte:fragment>
-        </SidebarItem>
-
-        <SidebarItem label={$sidebarCollapsed ? '' : 'Profile'} href="/profile" active={$page.url.pathname === '/profile'} title="Profile">
-          <svelte:fragment slot="icon">
-            <UserOutline class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-          </svelte:fragment>
-        </SidebarItem>
+        {#each secondaryItems as item}
+          <SidebarItem
+            label={$sidebarCollapsed ? '' : item.label}
+            href={item.href}
+            active={$page.url.pathname === item.href}
+            title={item.label}
+            aria-label={item.label}
+            class={$sidebarCollapsed ? 'flex justify-center' : ''}
+            spanClass={$sidebarCollapsed ? 'hidden' : 'ms-3'}
+            aClass={$sidebarCollapsed ? 'justify-center' : ''}
+          >
+            {#snippet icon()}
+              {@const Icon = item.icon}
+              <Icon class="w-6 h-6 shrink-0 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+            {/snippet}
+          </SidebarItem>
+        {/each}
       </SidebarGroup>
     </div>
   </SidebarWrapper>
 </Sidebar>
-
