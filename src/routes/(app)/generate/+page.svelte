@@ -1,7 +1,9 @@
 <script lang="ts">
   import AgentConsole from '$lib/components/AgentConsole.svelte';
   import { onMount } from 'svelte';
-  import { jobStatus, generationLogs, progress } from '$lib/stores/generation';
+  import { jobStatus, generationLogs, progress, currentPrompt, currentDuration } from '$lib/stores/generation';
+  import { galleryStore } from '$lib/stores/gallery';
+  import { get } from 'svelte/store';
   import { creditBalance } from '$lib/stores/billing';
   import AppButton from '$lib/components/ui/AppButton.svelte';
   import { ArrowLeftOutline } from 'flowbite-svelte-icons';
@@ -35,8 +37,26 @@
         progress.set(100);
         generationLogs.update(l => [...l, { id: '5', timestamp: Date.now(), step: 'completed', message: 'Render complete. Updating R2 bucket and catalog.' }]);
         
-        // Deduct based on typical 10s clip for demo
-        creditBalance.update(b => Math.max(0, b - 10));
+        const promptVal = get(currentPrompt) || 'Cinematic wide shot of a futuristic metropolis, flying cars, rain...';
+        const durationVal = get(currentDuration) || 10;
+        
+        // Deduct based on dynamic duration
+        creditBalance.update(b => Math.max(0, b - durationVal));
+
+        // Select a random thumbnail from the newly generated local assets
+        const thumbs = ['/thumbnails/metropolis.png', '/thumbnails/neon_eye.png', '/thumbnails/alien_desert.png', '/thumbnails/glowing_mushroom.png'];
+        const randomThumb = thumbs[Math.floor(Math.random() * thumbs.length)];
+
+        // Append to local gallery store
+        galleryStore.addVideo({
+           id: 'vid-' + Date.now(),
+           prompt: promptVal,
+           duration: durationVal,
+           creditsUsed: durationVal,
+           createdAt: Date.now(),
+           thumbnailUrl: randomThumb,
+           videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4'
+        });
      }, 11000);
      
      return () => {

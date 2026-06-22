@@ -1,0 +1,41 @@
+diff --git a/node_modules/flowbite-svelte/dist/command-palette/CommandPalette.svelte b/node_modules/flowbite-svelte/dist/command-palette/CommandPalette.svelte
+index bfb3a45..872c001 100644
+--- a/node_modules/flowbite-svelte/dist/command-palette/CommandPalette.svelte
++++ b/node_modules/flowbite-svelte/dist/command-palette/CommandPalette.svelte
+@@ -33,7 +33,7 @@
+     const searchLower = search.trim().toLowerCase();
+     if (searchLower === "") return items;
+ 
+-    const check = (x?: string) => x?.toLowerCase().includes(searchLower);
++    const check = (x: string | undefined = undefined) => x?.toLowerCase().includes(searchLower);
+     return items.filter((item) => check(item.label) || check(item.description) || item.keywords?.some(check));
+   });
+ 
+diff --git a/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte b/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte
+index 6a52146..812aa79 100644
+--- a/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte
++++ b/node_modules/flowbite-svelte/dist/datepicker/Datepicker.svelte
+@@ -304,8 +304,8 @@
+   }
+ 
+   // Use locale for formatting (not finalTranslationLocale)
+-  const formatDate = (date?: Date): string => date?.toLocaleDateString(locale, dateFormat) ?? "";
+-  const isSameDate = (date1?: Date, date2?: Date): boolean => (date1 && date2 ? isSameDay(date1, date2) : false);
++  const formatDate = (date: Date | undefined = undefined ): string => date?.toLocaleDateString(locale, dateFormat) ?? "";
++  const isSameDate = (date1: Date | undefined = undefined, date2: Date | undefined = undefined): boolean => (date1 && date2 ? isSameDay(date1, date2) : false);
+   const isToday = (day: Date): boolean => isSameDate(day, new Date());
+   const isInRange = (day: Date): boolean => !!(range && rangeFrom && rangeTo && isWithinInterval(day, { start: rangeFrom, end: rangeTo }));
+ 
+diff --git a/node_modules/flowbite-svelte/dist/scroll-spy/ScrollSpy.svelte b/node_modules/flowbite-svelte/dist/scroll-spy/ScrollSpy.svelte
+index 69a98a1..2c42a2a 100644
+--- a/node_modules/flowbite-svelte/dist/scroll-spy/ScrollSpy.svelte
++++ b/node_modules/flowbite-svelte/dist/scroll-spy/ScrollSpy.svelte
+@@ -66,7 +66,7 @@
+     return clsx(link, customClass);
+   }
+ 
+-  function scrollToSection(itemId: string, event?: MouseEvent) {
++  function scrollToSection(itemId: string, event: MouseEvent | undefined = undefined) {
+     if (!browser) return;
+ 
+     if (event) event.preventDefault();

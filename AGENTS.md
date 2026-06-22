@@ -16,6 +16,7 @@ npm run build        # Build for Cloudflare Pages
 ## Architecture Overview
 
 ### Route Structure
+
 - **`(app)/*`** — Protected routes (requires authentication)
   - `/` — Prompt & credit estimation
   - `/generate` — Video generation with progress timeline
@@ -31,22 +32,25 @@ npm run build        # Build for Cloudflare Pages
 **Auth Flow:** Root `+layout.svelte` enforces auth via `$effect` → redirects to `/login` if not authenticated.
 
 ### State Management (Stores)
+
 All application state lives in **`$lib/stores/`**:
 
-| Store | Purpose | Reactivity |
-|-------|---------|-----------|
-| `auth.ts` | User authentication state (`User \| null`) | `writable` |
-| `billing.ts` | Credit balance with spring physics animation | `writable` + `spring` for bouncy feel |
+| Store           | Purpose                                      | Reactivity                                 |
+| --------------- | -------------------------------------------- | ------------------------------------------ |
+| `auth.ts`       | User authentication state (`User \| null`)   | `writable`                                 |
+| `billing.ts`    | Credit balance with spring physics animation | `writable` + `spring` for bouncy feel      |
 | `generation.ts` | Current job status, progress, logs, timeline | `writable` + `derived` for computed states |
 
 **Pattern:** Stores use **Svelte 5 runes** (`writable`, `derived`, `spring`, `tweened`). Never mutate store values directly—use `.set()` or `.update()`.
 
 ### Component Architecture
+
 - **Smart components** (pages) — Orchestrate stores, handle logic
 - **Presentational components** (`$lib/components/`) — Pure UI, receive props only
 - **Layout components** (`$lib/components/layout/`) — Navbar, Sidebar, BottomNav (responsive desktop/mobile)
 
 **Key Components:**
+
 - `AgentConsole.svelte` — Streaming job timeline simulator
 - `BillingCard.svelte` — Credit display with spring animation
 - `CreditEstimateWidget.svelte` — Dynamic cost estimator
@@ -56,12 +60,14 @@ All application state lives in **`$lib/stores/`**:
 ## Development Conventions
 
 ### TypeScript
+
 - **Strict mode enabled** (`"strict": true`)
 - All types centralized in **`$lib/types/index.ts`**
 - Status enums as union types: `'idle' | 'planning' | 'enhancing' | 'generating' | 'stitching' | 'completed' | 'failed'`
 - Store types must be explicit: `writable<User | null>`, `derived<JobStatus>`
 
 ### Svelte 5 Runes (Required)
+
 - **`$state()`** — Component local state (auto-reactive)
 - **`$props()`** — Typed component props with defaults
 - **`$derived()`** — Computed values (auto-track dependencies)
@@ -72,6 +78,7 @@ All application state lives in **`$lib/stores/`**:
 **Never use** old Svelte 4 syntax (let, reactive statements, etc.).
 
 ### Styling (TailwindCSS v4 Only)
+
 - **No `<style>` blocks** in components — use Tailwind utilities exclusively
 - Custom brand colors defined in `@theme`:
   - `primary: #020617` (navy)
@@ -85,6 +92,7 @@ All application state lives in **`$lib/stores/`**:
 - **Class sorting:** `prettier --write` auto-sorts TailwindCSS classes
 
 ### Naming Conventions
+
 - **Components:** `PascalCase` (e.g., `AgentConsole.svelte`)
 - **Routes/folders:** `kebab-case` (e.g., `forgot-password/`)
 - **Stores/utilities:** `camelCase` (e.g., `generation.ts`)
@@ -93,6 +101,7 @@ All application state lives in **`$lib/stores/`**:
 ## Common Patterns
 
 ### Reactive Derived State
+
 ```typescript
 // ✅ Good: Auto-recomputes when dependencies change
 let hasEnoughCredits = $derived($creditBalance >= costEstimate);
@@ -101,6 +110,7 @@ let isFormValid = $derived(promptText.length > 0 && !isLoading);
 ```
 
 ### Store Updates
+
 ```typescript
 // ✅ Good
 jobStatus.set('generating');
@@ -111,6 +121,7 @@ $generation.status = 'generating';
 ```
 
 ### Motion & Animation
+
 ```typescript
 // Spring physics for natural bouncy animations
 let balance = spring(0, { stiffness: 0.1, damping: 0.8 });
@@ -125,6 +136,7 @@ let progress = tweened(0, { duration: 800, easing: cubicInOut });
 ```
 
 ### Responsive Layout
+
 ```html
 <!-- Sidebar visible on desktop, hidden on mobile -->
 <div class="hidden md:block w-64 bg-slate-900">
@@ -138,6 +150,7 @@ let progress = tweened(0, { duration: 800, easing: cubicInOut });
 ```
 
 ### Form Handling
+
 ```html
 <form onsubmit|preventDefault={handleSubmit}>
   <input bind:value={prompt} placeholder="Enter prompt" />
@@ -148,6 +161,7 @@ let progress = tweened(0, { duration: 800, easing: cubicInOut });
 ```
 
 ### Auth Guard (Use in pages)
+
 ```typescript
 import { goto } from '$app/navigation';
 import { auth } from '$lib/stores/auth';
@@ -161,43 +175,48 @@ if (!$auth?.id) {
 
 ## Important Directories & Files
 
-| Path | Purpose |
-|------|---------|
-| `src/routes/` | SvelteKit file-based routing |
-| `src/lib/components/` | Reusable UI components |
-| `src/lib/stores/` | Global reactive state (auth, billing, generation) |
-| `src/lib/types/` | Centralized TypeScript definitions |
-| `src/css/app.css` | Global styles + TailwindCSS directives |
-| `svelte.config.js` | SvelteKit adapter config (Cloudflare Pages) |
-| `vite.config.ts` | Vite plugins (TailwindCSS, SvelteKit) |
-| `tsconfig.json` | Strict TypeScript settings |
-| `eslint.config.js` | Linting rules (ESLint + Prettier) |
+| Path                  | Purpose                                           |
+| --------------------- | ------------------------------------------------- |
+| `src/routes/`         | SvelteKit file-based routing                      |
+| `src/lib/components/` | Reusable UI components                            |
+| `src/lib/stores/`     | Global reactive state (auth, billing, generation) |
+| `src/lib/types/`      | Centralized TypeScript definitions                |
+| `src/css/app.css`     | Global styles + TailwindCSS directives            |
+| `svelte.config.js`    | SvelteKit adapter config (Cloudflare Pages)       |
+| `vite.config.ts`      | Vite plugins (TailwindCSS, SvelteKit)             |
+| `tsconfig.json`       | Strict TypeScript settings                        |
+| `eslint.config.js`    | Linting rules (ESLint + Prettier)                 |
 
 ## Potential Pitfalls
 
 ### Reactivity
+
 - ❌ Forgetting `$state()` on local variables → no updates
 - ❌ Using store.set() inside components without `$effect` → re-runs every render
 - ❌ `$effect` without dependencies → infinite loops
 - ✅ Always use `.set()` or `.update()` for stores, never direct mutation
 
 ### TypeScript
+
 - ❌ Ignoring null checks (`User | null`)
 - ❌ Non-exhaustive status handling in conditional logic
 - ✅ Enable strict mode, leverage type narrowing
 
 ### Styling
+
 - ❌ Adding `<style>` blocks → defeats Tailwind's optimizations
 - ❌ Mixing custom CSS with Tailwind utilities → specificity wars
 - ❌ Forgetting to run `prettier --write` → class order issues
 - ✅ Stick to Tailwind utilities, use `@apply` only when necessary
 
 ### Deployment (Cloudflare Pages)
+
 - ❌ Using Node.js APIs in routes (no fs, path, etc.)
 - ❌ Storing client-only code without `import { browser }` guard
 - ✅ Check `if (browser)` before accessing localStorage, document, etc.
 
 ### Component Development
+
 - ❌ Creating stores for component-local state → harder to test, unnecessary overhead
 - ❌ Forgetting `$bindable()` when child should update parent
 - ❌ Icon size inconsistency (mix of `w-4 h-4`, `w-5 h-5`, `w-6 h-6`)
@@ -206,6 +225,7 @@ if (!$auth?.id) {
 ## Code Quality
 
 ### Pre-commit Checklist
+
 1. Run `npm run format` to auto-format
 2. Run `npm run lint` to catch issues
 3. Run `npm run check` for type safety
@@ -213,6 +233,7 @@ if (!$auth?.id) {
 5. Test dark mode toggle (localStorage)
 
 ### Testing Patterns
+
 - No built-in test framework configured
 - Suggest adding **Vitest** + **Svelte Testing Library** for component testing
 - Stores can be tested in isolation (they're just functions)
@@ -225,7 +246,7 @@ When extending Beth:
 2. **New Components** → Follow BillingCard/CreditEstimateWidget structure (smart + presentational split)
 3. **New Types** → Add to `$lib/types/index.ts`, export from barrel
 4. **Backend Integration:**
-   - Replace SSE simulation with real `new EventSource()` 
+   - Replace SSE simulation with real `new EventSource()`
    - Use SvelteKit server actions (`+server.ts`) for API calls
    - Replace store mocks with database queries
 5. **Performance:**

@@ -6,6 +6,10 @@ import type { JobStatus, GenerationLog } from '../types';
 // Track current status of the generation agent
 export const jobStatus = writable<JobStatus>('idle');
 
+// Save the active prompt parameters
+export const currentPrompt = writable<string>('');
+export const currentDuration = writable<number>(10);
+
 // Accumulate logs published via SSE stream
 export const generationLogs = writable<GenerationLog[]>([]);
 

@@ -6,11 +6,19 @@
   import { creditBalance } from '$lib/stores/billing';
   import { goto } from '$app/navigation';
   
+  import { currentPrompt, currentDuration } from '$lib/stores/generation';
+  
   let promptText = $state("");
   let duration = $state(10);
   
   let isValidPrompt = $derived(promptText.trim().length > 5);
   let hasEnoughCredits = $derived($creditBalance >= duration); // rate is 1:1
+
+  function startGeneration() {
+     currentPrompt.set(promptText);
+     currentDuration.set(duration);
+     goto('/generate');
+  }
 </script>
 
 <svelte:head>
@@ -19,7 +27,7 @@
 
 <div class="max-w-5xl mx-auto flex flex-col gap-8 py-8 animate-fade-in">
   <div class="col-span-full mb-2">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary pb-2">
+    <h1 class="text-4xl md:text-5xl font-extrabold bg-clip-text bg-primary pb-2">
       What should we create today?
     </h1>
     <p class="text-gray-500 dark:text-gray-400 text-lg mt-2">Describe the scene, style, and soundtrack for your next masterpiece.</p>
@@ -36,7 +44,7 @@
      <div class="md:col-span-1 flex flex-col gap-6">
         <CreditEstimateWidget bind:duration />
         
-        <AppButton size="xl" variant="primary" class="w-full py-4 text-lg group" disabled={!isValidPrompt || !hasEnoughCredits} onclick={() => goto('/generate')}>
+        <AppButton size="xl" variant="primary" class="w-full py-4 text-lg group" disabled={!isValidPrompt || !hasEnoughCredits} onclick={startGeneration}>
             {#if !hasEnoughCredits}
                Need More Credits
             {:else if !isValidPrompt}
