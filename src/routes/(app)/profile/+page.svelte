@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Button, Input, Label } from 'flowbite-svelte';
-  import { auth } from '$lib/stores/auth';
+  import { userSession } from '$lib/stores/auth';
   import { UserCircleOutline } from 'flowbite-svelte-icons';
 
-  let fullName = $state($auth?.name || 'User');
-  let email = $state($auth?.email || 'user@example.com');
+  let fullName = $state($userSession?.name || 'User');
+  let email = $state($userSession?.email || 'user@example.com');
   let bio = $state('Creator and visual artist');
 
   function handleSaveProfile() {

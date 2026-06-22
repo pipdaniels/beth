@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Label, ToggleSwitch, Button } from 'flowbite-svelte';
-  import { auth } from '$lib/stores/auth';
+  import { Label, Toggle, Button } from 'flowbite-svelte';
 
   let darkMode = $state(false);
   let notifications = $state(true);
@@ -30,7 +29,7 @@
             <Label class="text-lg font-semibold dark:text-gray-200">Dark Mode</Label>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Enable dark theme for the interface</p>
           </div>
-          <ToggleSwitch bind:checked={darkMode} />
+          <Toggle bind:checked={darkMode} />
         </div>
       </div>
     </div>
@@ -45,7 +44,7 @@
             <Label class="text-lg font-semibold dark:text-gray-200">Push Notifications</Label>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Receive notifications about your video generation</p>
           </div>
-          <ToggleSwitch bind:checked={notifications} />
+          <Toggle bind:checked={notifications} />
         </div>
 
         <div class="flex items-center justify-between">
@@ -53,7 +52,7 @@
             <Label class="text-lg font-semibold dark:text-gray-200">Email Updates</Label>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Receive updates and news via email</p>
           </div>
-          <ToggleSwitch bind:checked={emailUpdates} />
+          <Toggle bind:checked={emailUpdates} />
         </div>
       </div>
     </div>
