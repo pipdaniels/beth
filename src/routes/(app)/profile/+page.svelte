@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-  <title>Beth | Profile</title>
+  <title>GPTexist | Profile</title>
 </svelte:head>
 
 <div class="max-w-3xl mx-auto py-8 animate-fade-in">

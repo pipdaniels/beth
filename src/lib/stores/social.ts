@@ -26,14 +26,14 @@ const defaultAccounts: SocialAccount[] = [
   { 
     id: 'acc-1', 
     platform: 'tiktok', 
-    handle: '@beth_creator', 
+    handle: '@gptexist_creator', 
     avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop', 
     connectedAt: Date.now() 
   },
   { 
     id: 'acc-2', 
     platform: 'instagram', 
-    handle: '@beth_visuals', 
+    handle: '@gptexist_visuals', 
     avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop', 
     connectedAt: Date.now() 
   }
@@ -46,8 +46,8 @@ const defaultPosts: SocialPost[] = [
     videoPrompt: 'Cinematic wide shot of a futuristic metropolis, flying cars...',
     thumbnailUrl: '/thumbnails/metropolis.png',
     platform: 'tiktok',
-    accountHandle: '@beth_creator',
-    caption: 'Behold the future metropolis! Generated entirely with Beth AI. 🚀✨ #AI #scifi',
+    accountHandle: '@gptexist_creator',
+    caption: 'Behold the future metropolis! Generated entirely with GPTexist AI. 🚀✨ #AI #scifi',
     status: 'published',
     createdAt: Date.now() - 3600000
   }

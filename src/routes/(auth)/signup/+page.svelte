@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>Sign up | Beth</title>
+  <title>Sign up | GPTexist</title>
 </svelte:head>
 
 <div class="animate-fade-in w-full">

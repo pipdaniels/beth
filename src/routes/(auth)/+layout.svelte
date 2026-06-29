@@ -36,7 +36,7 @@
        </div>
        <div class="w-full max-w-md mx-auto">
           <div class="mb-8 flex items-center gap-3">
-             <span class="text-3xl font-extrabold tracking-tight text-primary dark:text-white">Beth</span>
+             <img src="/gptexist-logo.png" alt="GPTexist" class="h-12 w-auto max-w-[220px] object-contain" />
           </div>
           {@render children()}
        </div>

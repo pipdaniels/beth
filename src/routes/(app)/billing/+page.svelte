@@ -34,7 +34,7 @@
 </script>
 
 <svelte:head>
-  <title>Billing | Beth</title>
+  <title>Billing | GPTexist</title>
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-12 relative animate-fade-in">

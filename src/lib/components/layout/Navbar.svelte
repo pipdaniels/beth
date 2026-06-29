@@ -27,7 +27,7 @@
 
 <Navbar fluid class="border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 bg-white dark:bg-gray-900">
   <NavBrand href="/">
-    <span class="self-center whitespace-nowrap text-2xl font-bold dark:text-white text-primary">Beth</span>
+    <img src="/gptexist-logo.png" alt="GPTexist" class="h-10 w-auto max-w-[180px] object-contain" />
   </NavBrand>
 
   <div class="flex items-center gap-4">

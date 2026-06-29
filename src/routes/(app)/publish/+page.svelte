@@ -64,7 +64,7 @@
   });
 
   // Hashtag suggestions
-  const tags = ['#AIArt', '#scifi', '#future', '#visuals', '#Beth', '#cyberpunk'];
+  const tags = ['#AIArt', '#scifi', '#future', '#visuals', '#GPTexist', '#cyberpunk'];
   function addHashtag(tag: string) {
     if (!caption.includes(tag)) {
       caption = caption.trim() + ' ' + tag;
@@ -125,7 +125,7 @@
 </script>
 
 <svelte:head>
-  <title>Social Hub | Beth</title>
+  <title>Social Hub | GPTexist</title>
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-8 px-4 animate-fade-in pb-24">

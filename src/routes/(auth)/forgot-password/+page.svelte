@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>Reset Password | Beth</title>
+  <title>Reset Password | GPTexist</title>
 </svelte:head>
 
 <div class="animate-fade-in w-full">

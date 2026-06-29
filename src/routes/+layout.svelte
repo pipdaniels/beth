@@ -1,6 +1,5 @@
 <script lang="ts">
   import '../css/app.css';
-  import favicon from '$lib/assets/favicon.svg';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { userSession } from '$lib/stores/auth';
@@ -17,7 +16,8 @@
 </script>
 
 <svelte:head>
-  <link rel="icon" href={favicon} />
+  <link rel="icon" href="/gptexist-logo.png" />
+  <title>GPTexist</title>
 </svelte:head>
 
 <div class="h-screen w-full bg-white dark:bg-gray-900 overflow-hidden font-sans text-gray-900 dark:text-gray-100">

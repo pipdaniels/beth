@@ -30,7 +30,7 @@
 </script>
 
 <svelte:head>
-  <title>OTP Sign in | Beth</title>
+  <title>OTP Sign in | GPTexist</title>
 </svelte:head>
 
 <div class="animate-fade-in relative w-full">

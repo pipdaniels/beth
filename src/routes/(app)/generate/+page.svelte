@@ -69,7 +69,7 @@
 </script>
 
 <svelte:head>
-  <title>Generating | Beth</title>
+  <title>Generating | GPTexist</title>
 </svelte:head>
 
 <div class="max-w-6xl mx-auto h-full flex flex-col py-8 animate-fade-in">

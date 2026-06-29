@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-  <title>Verify Email | Beth</title>
+  <title>Verify Email | GPTexist</title>
 </svelte:head>
 
 <div class="animate-fade-in w-full text-center flex flex-col items-center justify-center">

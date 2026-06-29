@@ -14,7 +14,7 @@
 </script>
 
 <svelte:head>
-  <title>Gallery | Beth</title>
+  <title>Gallery | GPTexist</title>
 </svelte:head>
 
 <div class="max-w-6xl mx-auto py-8">

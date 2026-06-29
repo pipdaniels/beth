@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-  <title>Beth | Settings</title>
+  <title>GPTexist | Settings</title>
 </svelte:head>
 
 <div class="max-w-3xl mx-auto py-8 animate-fade-in">
