@@ -42,3 +42,23 @@ export interface PastVideo {
     createdAt: number; // timestamp
     duration: number;
 }
+
+export type GenerationMode = 'text' | 'image' | 'video';
+
+export type GenerationLength = 'short' | 'medium' | 'long';
+
+export type GenerationModel =
+    | 'gpt-4.1'
+    | 'gpt-4o'
+    | 'claude-3.7-sonnet'
+    | 'gemini-2.5-pro'
+    | 'grok-3'
+    | 'seedance'
+    | 'kling-2.1'
+    | 'kling-2.2';
+
+export interface GenerationFrame {
+    file: File | null;
+    previewUrl?: string;
+    label: string;
+}

@@ -1,7 +1,7 @@
 import { tweened } from 'svelte/motion';
 import { cubicOut } from 'svelte/easing';
 import { writable, derived } from 'svelte/store';
-import type { JobStatus, GenerationLog } from '../types';
+import type { JobStatus, GenerationLog, GenerationLength, GenerationMode, GenerationModel, GenerationFrame } from '../types';
 
 // Track current status of the generation agent
 export const jobStatus = writable<JobStatus>('idle');
@@ -9,6 +9,11 @@ export const jobStatus = writable<JobStatus>('idle');
 // Save the active prompt parameters
 export const currentPrompt = writable<string>('');
 export const currentDuration = writable<number>(10);
+export const currentGenerationMode = writable<GenerationMode>('video');
+export const currentLength = writable<GenerationLength>('medium');
+export const currentModel = writable<GenerationModel>('gpt-4.1');
+export const currentFirstFrame = writable<GenerationFrame | null>(null);
+export const currentLastFrame = writable<GenerationFrame | null>(null);
 
 // Accumulate logs published via SSE stream
 export const generationLogs = writable<GenerationLog[]>([]);
